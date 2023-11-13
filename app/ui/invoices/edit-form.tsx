@@ -10,15 +10,21 @@ import {
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 
-export default function EditInvoiceForm({
-  invoice,
-  customers,
-}: {
+// lib
+import { updateInvoice } from '@/app/lib/actions';
+
+interface IProps {
   invoice: InvoiceForm;
   customers: CustomerField[];
-}) {
+}
+
+function EditInvoiceForm({ invoice, customers }: IProps) {
+  const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+
+  console.log(invoice);
+
   return (
-    <form>
+    <form action={updateInvoiceWithId}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
@@ -120,3 +126,5 @@ export default function EditInvoiceForm({
     </form>
   );
 }
+
+export default EditInvoiceForm;
