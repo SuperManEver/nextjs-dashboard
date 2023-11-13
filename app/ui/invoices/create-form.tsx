@@ -1,7 +1,10 @@
 'use client';
 
-import { CustomerField } from '@/app/lib/definitions';
+// vendor
 import Link from 'next/link';
+
+// UI
+import { CustomerField } from '@/app/lib/definitions';
 import {
   CheckIcon,
   ClockIcon,
@@ -10,9 +13,12 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 
-export default function Form({ customers }: { customers: CustomerField[] }) {
+// lib
+import { createInvoice } from '@/app/lib/actions';
+
+function Form({ customers }: { customers: CustomerField[] }) {
   return (
-    <form>
+    <form action={createInvoice}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
@@ -112,3 +118,5 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
     </form>
   );
 }
+
+export default Form;
