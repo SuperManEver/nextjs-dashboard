@@ -1,27 +1,34 @@
 'use client';
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+
+const DEBOUNCE_RATE = 300;
 
 function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handleSearch(evt: React.ChangeEvent<HTMLInputElement>) {
-    const params = new URLSearchParams(searchParams);
+  const handleSearch = useDebouncedCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const params = new URLSearchParams(searchParams);
+      const searchTerm = evt.target.value;
 
-    const searchTerm = evt.target.value;
+      params.set('page', '1');
 
-    if (searchTerm) {
-      params.set('query', searchTerm);
-    } else {
-      params.delete('query');
-    }
+      if (searchTerm) {
+        params.set('query', searchTerm);
+      } else {
+        params.delete('query');
+      }
 
-    replace(`${pathname}?${params.toString()}`);
-  }
+      replace(`${pathname}?${params.toString()}`);
+    },
+    DEBOUNCE_RATE,
+  );
 
   return (
     <div className="relative flex flex-1 flex-shrink-0">
