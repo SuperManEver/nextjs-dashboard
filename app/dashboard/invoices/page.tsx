@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { Metadata } from 'next';
 
 // UI
 import Pagination from '@/app/ui/invoices/pagination';
@@ -10,6 +11,10 @@ import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 
 // lib
 import { fetchInvoicesPages } from '@/app/lib/data';
+
+export const metadata: Metadata = {
+  title: 'Invoices',
+};
 
 interface IProps {
   searchParams?: {
