@@ -4,6 +4,7 @@ import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 
 // lib
 import { fetchCustomers, fetchInvoiceById } from '@/app/lib/data';
+import { notFound } from 'next/navigation';
 
 interface IProps {
   params: { id: string };
@@ -16,6 +17,10 @@ async function Page({ params }: IProps) {
     fetchInvoiceById(id),
     fetchCustomers(),
   ]);
+
+  if (!invoice) {
+    notFound();
+  }
 
   return (
     <main>
