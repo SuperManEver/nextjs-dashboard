@@ -1,3 +1,5 @@
+'use client';
+
 // vendor
 import { useFormState, useFormStatus } from 'react-dom';
 
